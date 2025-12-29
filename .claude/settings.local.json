@@ -6,7 +6,20 @@
       "Bash(tree:*)",
       "Bash(mkdir:*)",
       "Skill(leychile)",
-      "Skill(leychile:*)"
+      "Skill(leychile:*)",
+      "Skill(mis-documentos)",
+      "Skill(mis-documentos:*)",
+      "Skill(vlex)",
+      "Skill(vlex:*)",
+      "Bash(for dir in mis_documentos/*/)",
+      "Bash(do if [ -d \"$dir\" ])",
+      "Bash(if [ -f \"$dirREADME.md\" ])",
+      "Bash(then head -n 5 \"$dirREADME.md\")",
+      "Bash(else echo \"No README found\")",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(ls:*)",
+      "Bash(test:*)"
     ]
   }
 }

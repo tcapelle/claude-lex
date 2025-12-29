@@ -6,10 +6,9 @@ Este es un agente legal especializado en legislacion chilena. Puede consultar le
 
 ## Capacidades
 
-- Buscar leyes por texto o tema
-- Obtener el texto completo de una ley por su ID
-- Consultar versiones historicas de leyes
-- Acceder a guias simplificadas ("Ley Facil") sobre temas legales comunes
+- **Legislacion Chilena** (`/leychile`): Buscar leyes por texto o tema, obtener el texto completo de una ley por su ID, consultar versiones historicas, y acceder a guias simplificadas ("Ley Facil")
+- **Gestion de Casos** (`/mis-documentos`): Mantener una base de datos organizada de clientes y casos, buscar casos similares, y usar documentos previos como plantillas
+- **APIs Legales Internacionales** (`/vlex`): Buscar documentos legales globales, anonimizar texto (remover PII), extraer citas legales, clasificar documentos, y analizar frases clave
 
 ## Uso
 
@@ -19,6 +18,31 @@ Simplemente pregunta sobre cualquier tema legal chileno. Ejemplos:
 - "Busca leyes sobre proteccion de datos personales"
 - "Muestrame el articulo 1 de la Constitucion"
 - "Que leyes regulan el teletrabajo?"
+
+### Invocando Skills Directamente
+
+Puedes invocar los skills explicitamente usando el formato `/skill-name`:
+
+**Consultar legislacion chilena:**
+```
+/leychile Busca informacion sobre el Codigo Civil articulo 1545
+/leychile Que dice la ley 19.628 sobre proteccion de datos?
+/leychile Muestrame proyectos de ley sobre teletrabajo
+```
+
+**Gestionar casos y documentos:**
+```
+/mis-documentos Lista los clientes disponibles
+/mis-documentos Busca casos similares a compraventa de inmuebles
+/mis-documentos Muestra los documentos del cliente Chile Ambiente
+```
+
+**Usar vLex APIs (requiere VLEX_API_KEY):**
+```
+/vlex Anonimiza este texto: [pegar texto con datos personales]
+/vlex Extrae las citas legales de este documento
+/vlex Busca jurisprudencia sobre responsabilidad civil en EEUU
+```
 
 ## Flujo de Trabajo Obligatorio
 
