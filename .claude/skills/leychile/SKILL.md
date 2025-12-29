@@ -164,8 +164,89 @@ SPARQL returns JSON with structure:
 }
 ```
 
+## API Alternativa: Guía Legal Ciudadana (Ley Fácil)
+
+La BCN también proporciona un servicio REST API más amigable con guías legales simplificadas:
+
+### Buscar temas legales:
+```bash
+curl -s "https://www.bcn.cl/leyfacil/recurso/tema"
+```
+
+### Obtener información de un tema específico:
+```bash
+curl -s "https://www.bcn.cl/leyfacil/recurso/{tema-slug}"
+```
+
+Ejemplo de temas disponibles:
+- `matrimonio`
+- `divorcio`
+- `arriendo`
+- `compraventa`
+- `herencias`
+- `trabajo`
+- `pension-alimenticia`
+
+## Consulta Directa de Leyes
+
+Para obtener el texto completo de una ley, usa la API web de LeyChile:
+
+### Obtener ley completa en HTML:
+```bash
+curl -s "https://www.bcn.cl/leychile/navegar?idNorma=172986" | python3 -c "
+import sys, re
+html = sys.stdin.read()
+# Extraer contenido relevante del HTML
+print(html)
+"
+```
+
+### Buscar leyes por texto:
+```bash
+# Buscar en el buscador de LeyChile
+curl -s "https://www.bcn.cl/leychile/consulta" \
+  -d "q=compraventa" \
+  -d "p=1"
+```
+
+## Estrategia Recomendada para Consultas
+
+1. **Para guías simplificadas**: Usa la API de Ley Fácil
+2. **Para búsqueda de leyes**: Usa SPARQL o búsqueda web
+3. **Para texto completo de ley conocida**: Usa el ID directo con WebFetch
+4. **Para proyectos de ley activos**: Usa SPARQL con `bcn:ProyectoDeLey`
+
+## Ejemplos Prácticos
+
+### Ejemplo: Buscar información sobre compraventa
+```bash
+# Opción 1: Guía simplificada
+curl -s "https://www.bcn.cl/leyfacil/recurso/compraventa"
+
+# Opción 2: Código Civil (artículos 1793-1896)
+# Usar WebFetch con: https://www.bcn.cl/leychile/navegar?idNorma=172986&idParte=8881711
+```
+
+### Ejemplo: Buscar leyes sobre lavado de activos
+```bash
+curl -s 'https://datos.bcn.cl/sparql' \
+  --data-urlencode "query=
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?norma ?label
+WHERE {
+  ?norma rdfs:label ?label .
+  FILTER(CONTAINS(STR(?label), '19.913'))
+}
+LIMIT 10" \
+  -H "Accept: application/json"
+```
+
+**NOTA:** En las consultas SPARQL, usa `STR(?variable)` en lugar de `LCASE(?variable)` para evitar errores de tipo.
+
 ## Reference
 
 - Main Portal: https://www.bcn.cl/leychile/
 - Open Data: https://datos.bcn.cl/es/
 - SPARQL Endpoint: https://datos.bcn.cl/sparql
+- Ley Fácil API: https://www.bcn.cl/leyfacil/recurso/

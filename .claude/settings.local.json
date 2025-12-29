@@ -3,7 +3,10 @@
     "allow": [
       "Bash(curl:*)",
       "Bash(python3:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(mkdir:*)",
+      "Skill(leychile)",
+      "Skill(leychile:*)"
     ]
   }
 }
